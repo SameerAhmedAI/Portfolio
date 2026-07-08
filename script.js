@@ -161,3 +161,40 @@ document.querySelectorAll('.skill-pill').forEach(pill => {
     pill.style.boxShadow = '';
   });
 });
+
+// ── Project slider ──
+const track = document.getElementById('projectsTrack');
+const sliderBtn = document.getElementById('sliderBtn');
+const sliderBtnLabel = document.getElementById('sliderBtnLabel');
+const dots = document.querySelectorAll('.slider-dot');
+let currentPage = 0;
+const totalPages = 2;
+
+function goToPage(page) {
+  currentPage = page;
+  track.style.transform = `translateX(-${page * 100}%)`;
+
+  // Update button label + arrow
+  if (page === 0) {
+    sliderBtnLabel.textContent = 'View More';
+    sliderBtn.classList.remove('flipped');
+  } else {
+    sliderBtnLabel.textContent = 'Go Back';
+    sliderBtn.classList.add('flipped');
+  }
+
+  // Update dots
+  dots.forEach((d, i) => d.classList.toggle('active', i === page));
+}
+
+if (sliderBtn) {
+  sliderBtn.addEventListener('click', () => {
+    goToPage(currentPage === 0 ? 1 : 0);
+  });
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    goToPage(parseInt(dot.dataset.page));
+  });
+});
