@@ -152,7 +152,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Skill pill hover ripple ──
+// ── Resume button: open in new tab on desktop, download on mobile ──
+const resumeBtn = document.getElementById('resumeBtn');
+if (resumeBtn) {
+  const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  if (isMobile) {
+    resumeBtn.setAttribute('download', 'Sameer_Ahmed_CV.pdf');
+    resumeBtn.removeAttribute('target');
+  }
+}
 document.querySelectorAll('.skill-pill').forEach(pill => {
   pill.addEventListener('mouseenter', () => {
     pill.style.boxShadow = '0 0 12px rgba(0,229,255,0.15)';
